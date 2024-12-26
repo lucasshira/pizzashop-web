@@ -23,12 +23,15 @@ export function AccountMenu() {
     // chave para identificar requisicao = queryKey
     queryKey: ["profile"],
     queryFn: getProfile,
+    staleTime: Infinity,
   });
 
   const { data: managedRestaurant, isLoading: isLoadingManagedRestaurant } =
     useQuery({
       queryKey: ["managed-restaurant"],
       queryFn: getManagedRestaurant,
+      // tempo para recarregar os dados do cache que estao obsoletos
+      staleTime: Infinity,
     });
 
   return (
