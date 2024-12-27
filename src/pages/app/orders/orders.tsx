@@ -1,3 +1,10 @@
+import { useQuery } from "@tanstack/react-query";
+import { Helmet } from "react-helmet-async";
+import { useSearchParams } from "react-router-dom";
+import { z } from "zod";
+
+import { getOrders } from "@/api/get-orders";
+import Pagination from "@/components/pagination";
 import {
   Table,
   TableBody,
@@ -5,12 +12,30 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Helmet } from "react-helmet-async";
-import OrderTableRow from "./order-table-row";
+
 import OrderTableFilters from "./order-table-filters";
-import Pagination from "@/components/pagination";
+import OrderTableRow from "./order-table-row";
 
 const Orders = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const pageIndex = z.coerce
+    .number()
+    .transform((page) => page - 1)
+    .parse(searchParams.get("page") ?? "1");
+
+  const { data: result } = useQuery({
+    queryKey: ["orders", pageIndex],
+    queryFn: () => getOrders({ pageIndex: pageIndex }),
+  });
+
+  function handlePaginate(pageIndex: number) {
+    setSearchParams((state) => {
+      state.set("page", String(pageIndex + 1));
+      return state;
+    });
+  }
+
   return (
     <>
       <Helmet title="Pedidos" />
@@ -34,14 +59,22 @@ const Orders = () => {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {Array.from({ length: 10 }).map((_, i) => {
-                  return <OrderTableRow key={i} />;
-                })}
+                {result &&
+                  result.orders.map((order) => {
+                    return <OrderTableRow key={order.orderId} order={order} />;
+                  })}
               </TableBody>
             </Table>
           </div>
 
-          <Pagination pageIndex={0} totalCount={105} perPage={10} />
+          {result && (
+            <Pagination
+              pageIndex={result.meta.pageIndex}
+              totalCount={result.meta.totalCount}
+              perPage={result.meta.perPage}
+              onPageChange={handlePaginate}
+            />
+          )}
         </div>
       </div>
     </>
