@@ -2,6 +2,7 @@
 
 import { api } from "@/lib/axios";
 
+// tipagem da query (parametros)
 export interface GetOrdersQuery {
   pageIndex?: number | null;
   orderId?: string | null;
@@ -9,6 +10,7 @@ export interface GetOrdersQuery {
   status?: string | null;
 }
 
+// tipagem dos dados retornados no body
 export interface GetOrdersResponse {
   orders: {
     orderId: string;
