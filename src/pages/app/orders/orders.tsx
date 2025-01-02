@@ -15,6 +15,7 @@ import {
 
 import OrderTableFilters from "./order-table-filters";
 import OrderTableRow from "./order-table-row";
+import { OrderTableSkeleton } from "./order-table-skeleton";
 
 const Orders = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -28,7 +29,7 @@ const Orders = () => {
     .transform((page) => page - 1)
     .parse(searchParams.get("page") ?? "1");
 
-  const { data: result } = useQuery({
+  const { data: result, isLoading: isLoadingOrders } = useQuery({
     // informacoes que alteram valor precisam estar na queryKey, para que o react-query saiba quando refazer a query
     queryKey: ["orders", pageIndex, orderId, customerName, status],
     queryFn: () =>
@@ -70,6 +71,8 @@ const Orders = () => {
                 </TableRow>
               </TableHeader>
               <TableBody>
+                {isLoadingOrders && <OrderTableSkeleton />}
+
                 {result &&
                   result.orders.map((order) => {
                     return <OrderTableRow key={order.orderId} order={order} />;
