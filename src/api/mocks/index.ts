@@ -4,7 +4,25 @@ import { setupWorker } from 'msw/browser';
 
 import { env } from '@/env';
 
-export const worker = setupWorker();
+import { getDailyRevenueInPeriodMock } from './get-daily-revenue-in-period-mock';
+import { getDayOrdersAmountMock } from './get-day-orders-amount-mock';
+import { getMonthCanceledOrdersAmountMock } from './get-month-canceled-orders-amount-mock';
+import { getMonthOrdersAmountMock } from './get-month-orders-amount-mock';
+import { getMonthRevenueMock } from './get-month-revenue-mock';
+import { getPopoularProductsMock } from './get-popular-products-mock';
+import { registerRestaurantMock } from './register-restaurant-mock';
+import { signInMock } from './sign-in-mock';
+
+export const worker = setupWorker(
+  signInMock, 
+  registerRestaurantMock, 
+  getDayOrdersAmountMock, 
+  getMonthOrdersAmountMock, 
+  getMonthCanceledOrdersAmountMock, 
+  getMonthRevenueMock,
+  getDailyRevenueInPeriodMock,
+  getPopoularProductsMock
+);
 
 // a partir dessa funcao, todas as requisicoes feitas seram interceptadas pelo MSWorker
 export async function enableMSW() {
