@@ -9,7 +9,7 @@ const renderOrderStatus = (status: OrderStatus) =>
   render(<OrderStatus status={status} />);
 
 // describe serve para CATEGORIZAR os testes: para informar que estamos testando a msm unidade de codigo
-describe("Order Status", () => {
+describe("OrderStatus", () => {
   // isso deve mostrar... essa seria a semantica (um caso especifico de teste)
   // Cada it deve conter uma única asserção ou um conjunto lógico de asserções para o comportamento esperado
   it("should display the right text when order status is pending", () => {
