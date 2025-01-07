@@ -8,8 +8,8 @@ export const getDailyRevenueInPeriodMock = http.get<never, never, GetDailyRevenu
     { date: '02/01/2024', receipt: 800 },
     { date: '03/01/2024', receipt: 4000 },
     { date: '04/01/2024', receipt: 1500 },
-    { date: '05/01/2024', receipt: 100 },
-    { date: '06/01/2024', receipt: 50 },
+    { date: '05/01/2024', receipt: 2300 },
+    { date: '06/01/2024', receipt: 500 },
     { date: '07/01/2024', receipt: 3400 },
   ])
 })
