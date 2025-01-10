@@ -23,7 +23,7 @@ test('sign in with wrong credentials', async ({ page }) => {
   // primeiramente comecar entrando na pagina de login
   await page.goto('/sign-in', { waitUntil: 'networkidle' });
 
-  // pegando label do input Email, preenchendo ele com o email de sucesso
+  // pegando label do input Email, preenchendo ele com o um email incorreto
   await page.getByPlaceholder('example@email.com').fill('wrongemail@example.com');
 
   // clicando no botao de acesso
