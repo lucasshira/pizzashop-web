@@ -19,14 +19,12 @@ test('update profile successfully', async ({ page }) => {
 
   const toast = page.getByText("Perfil atualizado com sucesso");
 
-  expect(toast).toBeVisible();
+  await expect(toast).toBeVisible();
 
   await page.getByRole('button', { name: 'Close' }).click();
 
-  await page.waitForTimeout(300);
-
   // apos trocar o nome com sucesso e fechar o modal, esperamos que o nome tenha sido trocado
-  expect(page.getByRole('button', { name: 'Rocket Pizza' })).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Rocket Pizza' })).toBeVisible();
 });
 
 test('update profile with an invalid name', async ({ page }) => {
@@ -43,7 +41,5 @@ test('update profile with an invalid name', async ({ page }) => {
 
   const toast = page.getByText("Falha ao atualizar perfil, tente novamente!");
 
-  expect(toast).toBeVisible();
-
-  await page.waitForTimeout(300);
+  await expect(toast).toBeVisible();
 });

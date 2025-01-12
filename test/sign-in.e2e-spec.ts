@@ -16,7 +16,7 @@ test('sign in successfully', async ({ page }) => {
   const toast = page.getByText("Enviamos um link de autenticação para seu e-mail.");
 
   // espero que ele seja um elemento visivel na pagina
-  expect(toast).toBeVisible();
+  await expect(toast).toBeVisible();
 });
 
 test('sign in with wrong credentials', async ({ page }) => {
@@ -32,9 +32,7 @@ test('sign in with wrong credentials', async ({ page }) => {
   const toast = page.getByText("Credenciais inválidas.");
 
   // espero que ele seja um elemento visivel na pagina
-  expect(toast).toBeVisible();
-
-  await page.waitForTimeout(2000);
+  await expect(toast).toBeVisible();
 });
 
 test('navigate to new restaurant', async ({ page }) => {
